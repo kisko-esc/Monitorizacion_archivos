@@ -14,7 +14,7 @@ Este script hecho en python monitoriza la creacion de ficheros en linux. Genera 
     "/var/tmp": 1,
     "/tmp": 1
   }
-  * ignorar_archivos.txt
+* ignorar_archivos.txt
     En este archivo se colocan los archivos o las coincidencias de archivos que no se quieren monitorizar.
     ##### Nota: Para NO monitorizar directorios que estan dentro de los diectorios a monitorizar de manera recursiva, se deben añadir a este archivo esos directorios.
 
