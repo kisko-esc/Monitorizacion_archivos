@@ -39,4 +39,3 @@ lib-dynload/
 /cache.css
 /sess_
 cpython-37m-x86_64-linux-gnu.so
-/child-coetus-ioe/coetusdata/cache/cache_pages/
