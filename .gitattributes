@@ -1,2 +1,2 @@
 * linguist-vendored
-*.python linguist-detectable=false
+*.py linguist-detectable=false
