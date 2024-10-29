@@ -1,8 +1,5 @@
-.png
-.jpg
-.gif
-.jpeg
-.tmp
+/tmp/archivos_creados.txt.tmp
+/root/scripts/scriptFicheros/archivos_creados.txt
 systemd-private
 etilqs_
 .goutputstream-
