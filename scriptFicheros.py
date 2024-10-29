@@ -143,9 +143,7 @@ class Ficheros(FileSystemEventHandler):
         '''
         FILE = os.path.join(self.actual_dir, 'ignorar_archivos.txt')
         with open(FILE, 'r') as ignorar:
-            patterns = ignorar.readlines()
-
-            for pattern in patterns:
+            for pattern in ignorar:
                 pattern = pattern.strip()
                 if re.search(re.escape(pattern), path):
                     return True
@@ -193,8 +191,6 @@ class Ficheros(FileSystemEventHandler):
         
         except FileNotFoundError as e:
             print(f"Error. No existe el directorio {path}\n{e}")
-            sys.exit(1)
-    
     # Correo
 
     def enviar_correo(self, asunto, msg):
@@ -238,28 +234,19 @@ class Ficheros(FileSystemEventHandler):
             Su funcion es recordar los archivos que se crearon con la ejecucion anterior del script, si este se reinicia.
         '''
         with open(self.log_archivos, 'r') as f:
-            linea = f.readlines()
-            for i in linea:
+            for i in f:
                 self.archivos_creados.append(ast.literal_eval(i.strip()))
 
     def eliminar_linea_archivo(self, file):
         self.archivos_creados.clear() # borro lista actual
 
-        with open(self.log_archivos, '+r') as f:
-            linea = f.readlines()
-            f.seek(0)
-
+        with open(self.log_archivos, '+r') as linea, open(f'{self.log_archivos}.tmp', 'a') as temp_file:
             for i in linea:
                 if not re.search(r'\[\'' + re.escape(file) + r'\'', i):
-                    '''
-                        Si encuentra el pattern(file), este se lo saltará con el not,
-                        con ello ira escribiendo el nuevo contenido sin la linea que contiene el pattern(file)
-                    '''
-                    f.write(i)
+                    temp_file.write(i)
                     self.archivos_creados.append(ast.literal_eval(i.strip())) # añado nuevos elementos a la variable temporal
-
-            f.truncate() # borro todo el contenido del archivo
-
+        os.replace(f'{self.log_archivos}.tmp', self.log_archivos) # Reemplazo el archivo temporal por el original
+        
 if __name__ == '__main__':
     fichero = Ficheros()
     fichero.run()
